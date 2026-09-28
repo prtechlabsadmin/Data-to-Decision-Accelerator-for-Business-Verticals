@@ -1,4 +1,4 @@
-# 🚀 Data-to-Decision Accelerator — E-commerce Sales Performance & Action Dashboard
+# Data-to-Decision Accelerator — E-commerce Sales Performance & Action Dashboard
 
 *From raw transactions to a boardroom-ready decision — in one command.*
 
@@ -18,47 +18,8 @@ It answers the three questions leadership actually asks:
 ## 2. Flow Chart / Architecture
 
 ### Pipeline Flow
-```text
-┌────────────────┐
-│  DATA SOURCE   │  src/data_generation.py
-│ Seeded synthetic│  6–12 months of orders, products, customers,
-│ generator      │  returns → data/raw_sales.csv
-└───────┬────────┘
-        ▼
-┌────────────────┐
-│   INGESTION    │  src/data_processing.py :: load_raw_data()
-│ CSV + schema   │  Type validation, date parsing, schema check
-│ validation     │
-└───────┬────────┘
-        ▼
-┌────────────────┐
-│  PROCESSING    │  src/data_processing.py
-│ Clean +        │  clean_data(), engineer_features(),
-│ features       │  segment_customers()
-│                │  → data/processed_sales.parquet
-└───────┬────────┘
-        ▼
-┌────────────────┐
-│   ANALYTICS    │  src/analysis.py
-│   INSIGHT      │  KPIs, trends, return drivers, regional drops
-│   ENGINE       │  → 3–5 ranked insights + executive memo
-└───────┬────────┘
-        ▼
-┌────────────────┐
-│  EVALUATION    │  tests/ + data-quality assertions +
-│  (validation)  │  revenue reconciliation checks
-└───────┬────────┘
-        ▼
-┌────────────────┐
-│  DEPLOYMENT    │  app.py — Streamlit dashboard (local +
-│                │  Streamlit Cloud); charts via src/visualize.py
-└───────┬────────┘
-        ▼
-┌────────────────┐
-│   MONITORING   │  Re-run pipeline on fresh data; freshness &
-│                │  return-rate drift checks; log review
-└────────────────┘
-```
+
+<img width="877" height="456" alt="image" src="https://github.com/user-attachments/assets/21c83404-a228-4db0-8e3d-52569369491b" />
 
 ### Stage Details
 
@@ -170,16 +131,12 @@ data-to-decision-accelerator/
 
 ---
 
-## 5. Screenshots
+## 5. UI
 
-📸 *Add these after running the pipeline locally.*
-
-| # | Screenshot | What it shows |
-| :-: | :--- | :--- |
-| 1 | `screenshots/dashboard_home.png` | Home page — KPI cards (net revenue, return rate, margin), filter sidebar |
-| 2 | `screenshots/input_output.png` | Input/output demo — raw CSV → processed parquet → margin-bleed chart |
-| 3 | `screenshots/quality_checks.png` | Evaluation dashboard — `pytest` coverage output + data-quality assertions |
-| 4 | `screenshots/error_handling.png` | Error handling / trace logs — dirty rows detected, fixed & logged |
+1. Home page — KPI cards (net revenue, return rate, margin), filter sidebar |
+2. Input/output demo — raw CSV → processed parquet → margin-bleed chart |
+3. Evaluation dashboard — `pytest` coverage output + data-quality assertions |
+4. Error handling / trace logs — dirty rows detected, fixed & logged |
 
 ---
 
