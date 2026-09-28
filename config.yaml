@@ -1,0 +1,84 @@
+# ============================================================
+# Data-to-Decision Accelerator — Central Configuration
+# All "magic numbers" live here. No thresholds hardcoded in src/.
+# Environment variables (.env) override these values.
+# ============================================================
+
+# ---------- Paths (relative to repo root) ----------
+paths:
+  raw_data: data/raw_sales.csv
+  processed_data: data/processed_sales.parquet
+  insights_dir: insights
+  charts_dir: insights/charts
+  memo_file: insights/executive_memo.md
+  logs_dir: logs
+  log_file: logs/pipeline.log
+  screenshots_dir: screenshots
+
+# ---------- Data generation ----------
+generation:
+  seed: 42                    # deterministic dataset — identical results every run
+  n_products: 200
+  n_customers: 2000
+  n_orders: 50000             # ~50K orders over 12 months
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  dirty_row_fraction: 0.032   # ~3.2% realistic dirty rows injected
+
+  # Order-volume multiplier per month (Jan..Dec) — Dec peak, Aug trough
+  monthly_seasonality: [0.85, 0.90, 1.00, 0.95, 1.05, 1.10,
+                        0.92, 0.88, 1.02, 1.08, 1.15, 1.30]
+
+  categories:
+    - Electronics
+    - Apparel
+    - Home & Kitchen
+    - Beauty
+    - Sports
+    - Toys
+
+  regions:
+    - North
+    - South
+    - East
+    - West
+    - Central
+
+# ---------- Cleaning rules ----------
+cleaning:
+  drop_duplicate_keys: true       # dedupe on order_id
+  fix_negative_quantities: true   # abs() + flag, never silently drop
+  missing_price_strategy: median  # median | drop
+  missing_region_strategy: mode
+  min_valid_price: 0.01
+  max_valid_price: 100000
+
+# ---------- Analysis thresholds ----------
+analysis:
+  high_return_threshold: 0.15    # flag category/SKU if return rate > 15%
+  min_category_volume: 50        # div-by-zero guard for low-volume categories
+  min_sku_volume: 20
+  top_n_return_drivers: 5        # "margin bleed" ranking depth
+  top_n_insights: 5              # ranked actions in the executive memo
+  mom_decline_threshold: -0.10   # MoM revenue drop > 10% = seasonal drop flag
+
+# ---------- Customer segmentation (RFM-lite) ----------
+segmentation:
+  champion_min_orders: 5
+  champion_recency_days: 30
+  loyal_min_orders: 3
+  at_risk_recency_days: 90
+  new_customer_window_days: 30
+
+# ---------- Visualization ----------
+visualization:
+  chart_format: png
+  chart_dpi: 150
+  palette: "Set2"
+  figure_size: [10, 6]
+
+# ---------- Logging ----------
+logging:
+  level: INFO        # DEBUG | INFO | WARNING | ERROR
+  console: true
+  file: true
