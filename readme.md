@@ -33,37 +33,7 @@ It answers the three questions leadership actually asks:
 | **Deployment** | Streamlit dashboard + one-page executive memo | `app.py`, `insights/executive_memo.md` |
 | **Monitoring** | One-command pipeline re-run; freshness & distribution-drift checks on return rates | logs + refreshed dashboard |
 
----
 
-### Project Structure
-
-```text
-data-to-decision-accelerator/
-├── data/
-│   ├── raw_sales.csv              # Step 1: auto-generated raw data
-│   └── processed_sales.parquet    # Step 2: cleaned + engineered features
-├── src/
-│   ├── data_generation.py         # Step 1: synthetic dataset builder
-│   ├── data_processing.py         # Step 2: cleaning + feature engineering
-│   ├── analysis.py                # Step 3: KPIs, trends, insights
-│   └── visualize.py               # Step 4: decision-oriented charts
-├── insights/
-│   ├── executive_memo.md          # Step 6: one-page leadership memo
-│   └── charts/                    # Step 5: exported chart images
-├── tests/
-│   ├── test_data_generation.py
-│   ├── test_data_processing.py
-│   └── test_analysis.py
-├── app.py                         # Streamlit interactive dashboard
-├── run_pipeline.py                # One-command orchestration
-├── config.yaml                    # Paths, thresholds, seed
-├── requirements.txt
-├── .env.example
-├── Makefile
-└── README.md
-```
-
----
 
 ## 3. Function List
 
@@ -133,10 +103,20 @@ data-to-decision-accelerator/
 
 ## 5. UI
 
-1. Home page — KPI cards (net revenue, return rate, margin), filter sidebar |
-2. Input/output demo — raw CSV → processed parquet → margin-bleed chart |
-3. Evaluation dashboard — `pytest` coverage output + data-quality assertions |
-4. Error handling / trace logs — dirty rows detected, fixed & logged |
+Home page — KPI cards (net revenue, return rate, margin), filter sidebar
+<img width="1820" height="801" alt="image" src="https://github.com/user-attachments/assets/dd13f1fa-e1a9-43b2-abf3-a406daa0831e" />
+
+Input/output demo — raw CSV → processed parquet → margin-bleed chart 
+<img width="1601" height="751" alt="image" src="https://github.com/user-attachments/assets/69cecd48-d4ab-4c7c-8fe1-fe0236d0a6d3" />
+
+
+Evaluation dashboard — `pytest` coverage output + data-quality assertions 
+<img width="1599" height="846" alt="image" src="https://github.com/user-attachments/assets/29fef99a-0ba4-4f62-8315-82d0cd437c07" />
+
+
+Category Scorecard
+<img width="1550" height="285" alt="image" src="https://github.com/user-attachments/assets/1fd7e3ad-ad8a-4487-ab0c-a47aa40618b5" />
+
 
 ---
 
